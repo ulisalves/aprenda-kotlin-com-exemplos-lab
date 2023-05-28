@@ -15,6 +15,10 @@ data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) 
     fun matricular(usuario: Usuario) {
         inscritos.add(usuario)
     }
+
+    fun getInscritos() {
+        this.inscritos.forEach {(key, value) -> println("Nome: $key - Nivel: $value") }
+    }
     
     operator fun iterator(): Iterator<ConteudoEducacional>{
         return conteudos.iterator()
@@ -35,6 +39,5 @@ fun main() {
 	formacao.matricular(usuario)
     
     println("A turma tem os alunos: ")
-    for (trilha in formacao.inscritos){
-        println(formacao.inscritos)
-    } 
+   formacao.getInscritos()
+}
