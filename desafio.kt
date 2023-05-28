@@ -1,21 +1,40 @@
-// [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
+enum class Nivel { FUNDAMENTAL, MEDIO, SUPERIOR }
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+data class Usuario (val nome: String, val nivel: Nivel)
 
-class Usuario
-
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
+data class ConteudoEducacional(val nome: String, val duracao: Int)
 
 data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
 
-    val inscritos = mutableListOf<Usuario>()
+    val inscritos: MutableList<Usuario> = mutableListOf(Usuario("Ulisses Alves",Nivel.SUPERIOR),
+                                                          Usuario("Luke Skywalker",Nivel.MEDIO),
+                                                          Usuario("Anakin",Nivel.FUNDAMENTAL)
+   		                                                 )
+        
     
     fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+        inscritos.add(usuario)
     }
+    
+    operator fun iterator(): Iterator<ConteudoEducacional>{
+        return conteudos.iterator()
+	}
 }
 
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
-}
+    
+    val formacao = Formacao("Frontend Developer",
+                            listOf(ConteudoEducacional("HTML", 12), 
+                                   ConteudoEducacional("CSS", 10), 
+                                   ConteudoEducacional("Javascript", 20)))
+    println ("Nome do curso: ${formacao.nome}")
+    for (trilha in formacao)
+    println ("A trilha ${trilha.nome} tem duração de ${trilha.duracao} h")
+    
+    val usuario = Usuario("Mestre Yoda",Nivel.SUPERIOR)
+	formacao.matricular(usuario)
+    
+    println("A turma tem os alunos: ")
+    for (trilha in formacao.inscritos){
+        println(formacao.inscritos)
+    } 
